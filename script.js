@@ -1,58 +1,97 @@
-$(document).ready(function() {
+jQuery(document).ready(function(){
+  
+	var name = "data/"+$("#nameSVG").val();
+	console.log(name);
 
-	// var tabG2lid = $("text[g2lid]");
-	// console.log(tabG2lid);
-	// for (var i = tabG2lid.length - 1; i >= 0; i--) {
-	// 	var zone = '<span>'+tabG2lid[i]+'</span>';
-	// 	console.log(zone);
-	// 	$('p.contenu').append(zone);
-	// };
+  // jQuery.ajax({
+  //   type: "GET",
+  //   url: name,
+  //   dataType: "xml",
+  //   success: function(svgXML) {
+  //     var root = svgXML.getElementsByTagName('svg')[0];
+  //     var width = root.getAttribute('width'),
+  //         height = root.getAttribute('height');
+  //         console.log(width+" "+height);
+  //    var paper = Raphael(0, 0, width, height);
+  //     var newSet = paper.importSVG(svgXML);
+  //   }
+  // });
+// function wraptorect(textnode, boxObject, padding, linePadding) {
 
-	$("text[g2lid]").each(function(){
-		var zone = '<input type=\'text\' name=\''
-		+$(this).attr('g2lId')
-		+'\' value=\''
-		+$(this).children('tspan').html()
-		+'\' data-g2l>';
-		console.log(zone);
-		$('p.contenu').append(zone);
-	});
+//     var x_pos = parseInt(boxObject.getAttribute('x')),
+//     y_pos = parseInt(boxObject.getAttribute('y')),
+//     boxwidth = parseInt(boxObject.getAttribute('width')),
+//     fz = parseInt(window.getComputedStyle(textnode)['font-size']);  // We use this to calculate dy for each TSPAN.
 
-	$("input[data-g2l]").change(function(){
-		var zone = $(this).attr('name');
-		console.log($("text[g2lid=\'"+zone+"\']").html());/**/
-		var newX = $("text[g2lid=\'"+zone+"\']").attr('x');
-		var newY = $("text[g2lid=\'"+zone+"\']").attr('y');
+//     var line_height = fz + linePadding;
 
-		var texte = '<tspan id=tspan3122 x='+newX+' y='+newY+' sodipodi:role="line">'+$(this).val()+'</tspan>';
-		var texteModif = texte.replace("\n","</tspan><tspan>");
+// // Clone the original text node to store and display the final wrapping text.
 
+// var wrapping = textnode.cloneNode(false);       // False means any TSPANs in the textnode will be discarded
+// wrapping.setAttributeNS(null, 'x', x_pos + padding);
+// wrapping.setAttributeNS(null, 'y', y_pos + padding);
 
-		//$("text[g2lid=\'"+zone+"\']").html(texteModif);
-		var elt = $("text[g2lid=\'"+zone+"\']")[0];
-		console.log("elt", elt);
-		var tspan = elt.createElementNS("http://www.w3.org/2000/svg", "tspan");
-		tspan.setAttributeNS(null, "id", "tspan3122");
-		tspan.setAttributeNS(null, "x", newX);
-		tspan.setAttributeNS(null, "y", newY);
-		tspan.setAttributeNS("sodipodi", "role", "line");
-		tspan.createTextNode($(this).val());
+// // Make a copy of this node and hide it to progressively draw, measure and calculate line breaks.
 
+// var testing = wrapping.cloneNode(false);
+// testing.setAttributeNS(null, 'visibility', 'hidden');  // Comment this out to debug
 
-		console.log($("text[g2lid=\'"+zone+"\']").html(), "(après)");/**/
+// var testingTSPAN = document.createElementNS(null, 'tspan');
+// var testingTEXTNODE = document.createTextNode(textnode.textContent);
+// testingTSPAN.appendChild(testingTEXTNODE);
 
+// testing.appendChild(testingTSPAN);
+//     var tester = document.getElementsByTagName('svg')[0].appendChild(testing);
 
-	});
+// var words = textnode.textContent.split(" ");
+// var line = line2 = "";
+// var linecounter = 0;
+//     var testwidth;
 
-// var attr = $('text').attr('g2lId');
+// for (var n = 0; n < words.length; n++) {
 
-// // For some browsers, `attr` is undefined; for others,
-// // `attr` is false.  Check for both.
-// if (typeof attr !== typeof undefined && attr !== false) {
-//     console.log($('text').html());
+//       line2 = line + words[n] + " ";
+//       testing.textContent = line2;
+//       testwidth = testing.getBBox().width;
+
+//     if ((testwidth + 2*padding) > boxwidth)
+//     {
+
+//         testingTSPAN = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+//         testingTSPAN.setAttributeNS(null, 'x', x_pos + padding);
+//         testingTSPAN.setAttributeNS(null, 'dy', line_height);
+
+//         testingTEXTNODE = document.createTextNode(line);
+//         testingTSPAN.appendChild(testingTEXTNODE);
+//         wrapping.appendChild(testingTSPAN);
+
+//         line = words[n] + " ";
+//         linecounter++;
+//     }
+//     else {
+//         line = line2;
+//     }
 // }
 
-	// var inp = "<input type=\'text\' >"
-	// $('p.contenu').add(inp).attr('type','text');
-	// html($("text[g2lid]").children('tspan').html());
+// var testingTSPAN = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+// testingTSPAN.setAttributeNS(null, 'x', x_pos + padding);
+// testingTSPAN.setAttributeNS(null, 'dy', line_height);
+
+// var testingTEXTNODE = document.createTextNode(line);
+// testingTSPAN.appendChild(testingTEXTNODE);
+
+// wrapping.appendChild(testingTSPAN);
+
+//     testing.parentNode.removeChild(testing);
+//     textnode.parentNode.replaceChild(wrapping,textnode);
+
+//     return linecounter;
+// }
+
+// document.getElementById('original').onmouseover = function () {
+
+//     var container = document.getElementById('destination');
+//     var numberoflines = wraptorect(this,container,20,1);
+//     console.log(numberoflines);  // In case you need it
+// };
 });
