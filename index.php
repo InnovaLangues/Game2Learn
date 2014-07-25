@@ -77,22 +77,13 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 $pdf->AddPage();
 
 // NOTE: Uncomment the following line to rasterize SVG image using the ImageMagick library.
-// $pdf->setJPEGQuality(100);
 // $pdf->setRasterizeVectorImages(true);
-// $pdf->ImageSVG($file='test2.svg', $x=0, $y=0, $w='150', $h='250', $link='', $align='', $palign='', $border=0, $fitonpage=false);
-$im = new Imagick();
-$svg = file_get_contents('test2.svg');
-$im->readImageBlob($svg);
-$im->setImageFormat("png24");
-$im->writeImage('test2.png');
-$im->clear();
-$im->destroy();
-$pdf->Image('test2.png', 0, 0, '', '', 'PNG', '', '', '', '', '', false, false, 1, false, false, false);
+$pdf->ImageSVG($file='test2.svg', $x=0, $y=0, $w='150', $h='250', $link='', $align='', $palign='', $border=0, $fitonpage=false);
 
 // $pdf->SetFont('Comic Sans MS', '', 8);
-$pdf->SetY(195);
-$txt = '© The copyright holder of the above Tux image is Larry Ewing, allows anyone to use it for any purpose, provided that the copyright holder is properly attributed. Redistribution, derivative work, commercial use, and all other use is permitted.';
-$pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
+// $pdf->SetY(195);
+// $txt = '© The copyright holder of the above Tux image is Larry Ewing, allows anyone to use it for any purpose, provided that the copyright holder is properly attributed. Redistribution, derivative work, commercial use, and all other use is permitted.';
+// $pdf->Write(0, $txt, '', 0, 'L', true, 0, false, false, 0);
 // // ---------------------------------------------------------
 
 //Close and output PDF document
